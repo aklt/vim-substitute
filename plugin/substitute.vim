@@ -2,8 +2,8 @@
 " substitute.vim -- mappings for using the s/// command on the word under the cursor
 "
 " Author:  Anders Thøgersen <anders [at] bladre.dk>
-" Date:    29-Dec-2010
-" Version: 1.2
+" Date:    03-Apr-2011
+" Version: 1.3
 "
 " $Id$
 "
@@ -13,8 +13,7 @@
 " 
 " TODO
 "
-"    Don't require g:substitute_Register
-"    
+"   - Don't require g:substitute_Register
 
 if exists('loaded_substitute') || &cp
   finish
@@ -124,7 +123,7 @@ fun! <SID>Escape(txt)
         let esc = esc . '*'
     endif
     let esc = escape(a:txt, esc)
-    if g:substitute_SingleWordSize > 0 && len <= g:substitute_SingleWordSize
+    if match(a:txt, '^\w\+$') > -1 && g:substitute_SingleWordSize > 0 && len <= g:substitute_SingleWordSize
         let esc = '\<'. esc .'\>'
     endif
     return esc
