@@ -1,4 +1,4 @@
-" 
+"
 " substitute.vim -- mappings for using the s/// command on the word under the cursor
 "
 " Author:  Anders Thøgersen <anders [at] bladre.dk>
@@ -10,7 +10,7 @@
 " See substitute.txt for help
 "
 " GetLatestVimScripts: 1167 1 :AutoInstall: substitute.vba.gz
-" 
+"
 " TODO
 "
 "   - Don't require g:substitute_Register
@@ -19,7 +19,6 @@ if exists('loaded_substitute') || &cp
   finish
 endif
 let loaded_substitute = 1
-
 let s:savedCpo = &cpoptions
 set cpoptions&vim
 
@@ -39,8 +38,8 @@ endif
 if !exists("g:substitute_SingleWordSize")
     let g:substitute_SingleWordSize = 3
 endif
-     
-" define the mappings 
+
+" define the mappings
 exe 'nnoremap <unique> '. g:substitute_NoPromptMap .' yiw:let @'. g:substitute_Register ."=':%'.<SID>SubstituteAltSubst(@\", 'g', 0)<Cr>@". g:substitute_Register
 exe 'nnoremap <unique> '. g:substitute_GlobalMap   .' yiw:let @'. g:substitute_Register ."=':%'.<SID>SubstituteAltSubst(@\", 'gc', 1)<Cr>@". g:substitute_Register
 exe 'nnoremap <unique> '. g:substitute_PromptMap   .' yiw:let @'. g:substitute_Register ."=':%'.<SID>SubstituteAltSubst(@\", 'gc', 0)<Cr>@". g:substitute_Register
@@ -59,34 +58,38 @@ fun! <SID>SubstituteAltSubst(txt, flags, global)
     exe "let left = '\<Left>'"
     let mv = left . left
     if a:flags == 'gc'
-        let mv = mv . left 
+        let mv = mv . left
     endif
     if strlen(a:txt)==0
         let mv = mv . left
     endif
-    let @" = <SID>Escape(a:txt) 
+    let @" = <SID>Escape(a:txt)
+    let ret = ''
     if a:global == 1
-        let len = strlen(@") + 4
-        while len > 0
-            let len = len - 1
-            let mv = mv . left
-        endwhile
-        return 'g' . d . d . 's' . d . @" . d . d . a:flags . mv
+      let len = strlen(@") + 4
+      while len > 0
+        let len = len - 1
+        let mv = mv . left
+      endwhile
+      let ret = 'g' . d . d . 's' . d . @" . d . d . a:flags . mv
+    else
+      let ret = 's' . d . @" . d . d . a:flags . mv
     endif
-    return 's' . d . @" . d . d . a:flags . mv 
+    let @" = a:txt
+    return ret
 endfun
 
 fun! <SID>SubstituteVisualAltSubst(txt, flags, global)
     exe "let left = '\<Left>'"
     let mv = left . left . left
     if a:flags == 'gc'
-        let mv = mv . left 
+        let mv = mv . left
     endif
     if line("'<")!=line("'>") || (line("'<")==line("'>") && col("'<")==1 && col("'>")==col("$"))
         let d = <SID>GetSubstDelimiter(a:txt)
         return ":'<,'>s" .d .d .d . a:flags . mv
     else
-        return ':%' . <SID>SubstituteAltSubst(a:txt, a:flags, a:global)    
+        return ':%' . <SID>SubstituteAltSubst(a:txt, a:flags, a:global)
     endif
 endfun
 
@@ -104,7 +107,7 @@ fun! <SID>GetSubstDelimiter(txt)
         return '~'
     elseif stridx(a:txt, '!') == -1
         return '!'
-    else 
+    else
         return '*'
     endif
 endfun
@@ -130,5 +133,5 @@ fun! <SID>Escape(txt)
 endfun
 
 let &cpoptions = s:savedCpo
-
+unlet s:savedCpo
 " vi: nowrap
