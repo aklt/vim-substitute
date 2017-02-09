@@ -122,7 +122,7 @@ fun! <SID>Escape(txt)
     if stridx(a:txt, '^') == 0
         let esc = esc . '^'
     endif
-    if stridx(a:txt, '*') > 0
+    if stridx(a:txt, '*') >= 0
         let esc = esc . '*'
     endif
     let esc = escape(a:txt, esc)
