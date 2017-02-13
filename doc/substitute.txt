@@ -1,8 +1,8 @@
 *substitute.txt*    Mappings for performing substitution                2010-12-29
-================================================================================
+==============================================================================
 Author:  Anders Thøgersen <anders [at] bladre.dk>
-Version: 1.2
-================================================================================
+Version: 1.3
+==============================================================================
 Contents
 
     1. Purpose..............: |substitute-purpose|
@@ -30,7 +30,7 @@ mappings is executed.  This register defaults to "9 but it can be changed; see
 substitute.vim provides the following two mappings for both visual and normal
 mode:
 
-   ;;  Run *:substitute* on the current buffer without prompting.
+   ;;  Run |:substitute| on the current buffer without prompting.
 
    ;'  The same, only prompt for each.
 
@@ -83,21 +83,22 @@ Disable by setting the value to -1.
 
 ==============================================================================
 4. History
+   1.3  - Minor fixes
 
    1.2  - Hacked in SingleWordSize and GlobalMap.
 
-   1.1  - Added use of GetLatestVimScripts and fixed a small bug. 
+   1.1  - Added use of GetLatestVimScripts and fixed a small bug.
 
-   1.04 - Added a separate helpfile and the possibility of customizing 
+   1.04 - Added a separate helpfile and the possibility of customizing
           mappings and the register that the script uses.
-   
+
    1.03 - Simplified the mapping a bit. Marking register ' was not needed.
-   
+
    1.02 - Changed the meaning of the ;' mapping, and added <unique> to the map
           definitions.  Added the Escape function so $ and ^ are only escaped
           when they appear at the beginning, or at the end.  Also added
           cpoptions check and <SID> stuff.
-   
+
    1.01 - Removed unuseful mapcheck.
 
 ==============================================================================

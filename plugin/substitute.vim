@@ -1,19 +1,10 @@
-"
 " substitute.vim -- mappings for using the s/// command on the word under the cursor
 "
 " Author:  Anders Thøgersen <anders [at] bladre.dk>
-" Date:    03-Apr-2011
+" Date:    12-Feb-2017
 " Version: 1.3
 "
-" $Id$
-"
-" See substitute.txt for help
-"
 " GetLatestVimScripts: 1167 1 :AutoInstall: substitute.vba.gz
-"
-" TODO
-"
-"   - Don't require g:substitute_Register
 
 if exists('loaded_substitute') || &cp
   finish
